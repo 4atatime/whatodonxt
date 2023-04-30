@@ -2,6 +2,9 @@
 var script = document.createElement('script');
 script.src = 'jQuery.js'; // Check https://jquery.com/ for the current version
 document.getElementsByTagName('head')[0].appendChild(script);
+
+
+
 var copyText= [
    '<div>drink a glass (200-500ml) of water, and then slowly stand up, think about (<span class="green bold">water</span>).</div>',
    '<div>do (<span class="green bold">yoga</span>) with people you live with, or just by yourself, while consentrating on your (<span class="green bold">tip toes</span>).</div>',
@@ -17,12 +20,21 @@ var copyText= [
 
   $("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)])
 
+
+//$('#flowerbutton').addEventListener('click', function(){
+   //function_1();
+      //var deg_temp =45;
+      //deg_temp = deg_temp+460;
+      //$("#flowerbutton").rotate(deg_temp);
+
+   //function_2();
+      //$("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)]);
+
+//});
+
 $(function() {
-    $("#flowerbutton").click(function () {
-       $("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)]);
-    });
-  
-  });
-
-
-  //alert('cool schtuff, get ready :)');
+   $("#flowerbutton").click(function () {
+     $("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)]);
+   });
+ 
+ });
