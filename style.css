@@ -238,7 +238,15 @@ body {
     display: inline-block;
     padding-left: 20%;
     transform: scale(1.1);
+    transform: rotate(360deg);
+    transition: transform 0.5s;
 }
+
+.flower:active {
+    transform: rotate(0deg);
+    transition:  0s;
+}
+
 
 .img_flower {
     width: 60vw

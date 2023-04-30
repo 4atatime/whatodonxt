@@ -43,12 +43,12 @@ $(function() {
    if (navigator.share) {
      navigator.share({
          title: 'Web Share API Draft',
-         text: 'Take a look at this spec!',
+         text: 'fun site that gives you shitty advices:',
          url: 'https://wicg.github.io/web-share/#share-method',
        })
-       .then(() => console.log('Successful share'))
-       .catch((error) => console.log('Error sharing', error));
+       .then(() => console.log('thanks for sharing:)'))
+       .catch((error) => console.log('shoot! something went wrong :(', error));
    } else {
-     console.log('Share not supported on this browser, do it the old way.');
+     console.log('rejected by your browser, but you can still share it the old way.');
    }
  });
