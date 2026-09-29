@@ -1,54 +1,107 @@
+/* =========================================================
+   whatodonxt — all the little interactions (plain JS, no libraries)
+   ========================================================= */
 
-var script = document.createElement('script');
-script.src = 'jQuery.js'; // Check https://jquery.com/ for the current version
-document.getElementsByTagName('head')[0].appendChild(script);
+const SITE_URL = 'https://4atatime.github.io/whatodonxt/';
 
-
-
-var copyText= [
-   '<div>drink a glass (200-500ml) of water, and then slowly stand up, think about (<span class="green bold">water</span>).</div>',
-   '<div>do (<span class="green bold">yoga</span>) with people you live with, or just by yourself, while consentrating on your (<span class="green bold">tip toes</span>).</div>',
-   '<div>rinse and dry an apple, then softly place your (<span class="green bold">lips</span>) on to its surface, as if you are talking to the seeds inside.</div>',
-   '<div>put on a film by Werner Herzog around 10pm, having only a dim and warm light on, in bed or sofa and (<span class="green bold">dive in</span>).</div>',
-   '<div>ask a friend to send you a song they have been listening to, put it on, while revisiting (<span class="green bold">memories</span>) with this friend.</div>',
-   '<div>try cooking an unfamiliar dish, while having a (<span class="green bold">random album</span>) from your fav musician in the background.</div>',
-   '<div>get downstairs, but only walk in the direction of (<span class="green bold">cigarette butts</span>) on the pavement</div>',
-   '<div>find a cozy spot where you can watch people come and go, (<span class="green bold">imagine</span>) how a kid would think upon this.</div>',
-   '<div>search for a building from your window that you have never been to, quickly (<span class="green bold">run to visit</span>).</div>',
-   '<div>look around, find whatever item that is in your favorite color, have (<span class="green bold">this color</span>) in your mind.</div>'
-  ];
-
-  $("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)])
+const flower = document.getElementById('flower');
+const answer = document.getElementById('answer');   // only exists on content.html
 
 
-//$('#flowerbutton').addEventListener('click', function(){
-   //function_1();
-      //var deg_temp =45;
-      //deg_temp = deg_temp+460;
-      //$("#flowerbutton").rotate(deg_temp);
+/* ---- spin the flower: each tap adds a bit more than a full turn ---- */
+let angle = 0;
+function spin() {
+  angle += 300 + Math.random() * 240;   // lands at a slightly different angle every time
+  flower.style.transform = `rotate(${angle}deg)`;
+}
 
-   //function_2();
-      //$("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)]);
 
-//});
+/* ---- home page: spin, fade the text out, then open the answer page ---- */
+if (flower && !answer) {
+  flower.addEventListener('click', (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;   // cmd/ctrl-click still opens a new tab
+    e.preventDefault();
+    spin();
+    document.body.classList.add('leaving');
+    setTimeout(() => { location.href = flower.href; }, 550);
+  });
 
-$(function() {
-   $("#flowerbutton").click(function () {
-     $("#answer_text").html(copyText[Math.floor(Math.random()*copyText.length)]);
-   });
- 
- });
+  // coming back with the browser's back button: undo the fade-out
+  window.addEventListener('pageshow', () => document.body.classList.remove('leaving'));
+}
 
- $('#sharebutton').on('click', () => {
-   if (navigator.share) {
-     navigator.share({
-         title: 'Web Share API Draft',
-         text: 'fun site that gives you shitty advices:',
-         url: 'https://wicg.github.io/web-share/#share-method',
-       })
-       .then(() => console.log('thanks for sharing:)'))
-       .catch((error) => console.log('shoot! something went wrong :(', error));
-   } else {
-     console.log('rejected by your browser, but you can still share it the old way.');
-   }
- });
+
+/* ---- answer page: show answers from answers.js, no repeats ---- */
+if (answer) {
+  // shuffle a copy of the pool (Fisher–Yates)
+  function shuffled(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // take answers off a shuffled deck; when it's empty, say so and reshuffle
+  let deck = shuffled(ANSWERS);
+  function nextAnswer() {
+    if (deck.length) return deck.pop();
+    deck = shuffled(ANSWERS);
+    return ALL_SEEN;
+  }
+
+  // [word] in answers.js  →  (word) in green bold, and ' → ’ (nicer apostrophe)
+  function format(text) {
+    return text
+      .replace(/\[(.+?)\]/g, '(<span class="green bold">$1</span>)')
+      .replace(/'/g, '’');
+  }
+
+  answer.innerHTML = format(nextAnswer());
+
+  // tap: spin, fade the old answer out, swap it, fade the new one in
+  let swapTimer;
+  flower.addEventListener('click', () => {
+    spin();
+    answer.classList.add('swap');
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(() => {
+      answer.innerHTML = format(nextAnswer());
+      answer.classList.remove('swap');
+    }, 280);
+  });
+}
+
+
+/* ---- share button (footer, both pages) ---- */
+const shareButton = document.getElementById('share');
+const toast = document.getElementById('toast');
+
+shareButton.addEventListener('click', async () => {
+  // phones (and some browsers): open the native share sheet
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'whatodonxt', text: 'not sure what to do next? ask the flower:', url: SITE_URL });
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;   // share sheet was closed, that's fine
+    }
+  }
+  // everywhere else: copy the link instead
+  try {
+    await navigator.clipboard.writeText(SITE_URL);
+    showToast('copied!');
+  } catch {
+    showToast(SITE_URL);   // clipboard blocked: at least show the link
+  }
+});
+
+// small bubble above the share button that disappears by itself
+let toastTimer;
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+}

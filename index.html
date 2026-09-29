@@ -1,82 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>whatodonxt</title>
-    <link rel="icon" href="iPhone 13/flower.png">
-   
-    <meta property="og:site_name" content="whatodonxt">
-    <meta property="og:title" content="whatodonxt" />
-    <meta property="og:description" content="how about..." />
-    <meta property="og:image" itemprop="image" content="https://4atatime.github.io/whatodonxt/iPhone%2013/flower.png"/>
-    <meta property="og:type" content="website" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>whatodonxt</title>
+  <meta name="description" content="how about...">
+  <meta name="theme-color" content="#0D0F0D">
 
-    <link rel="stylesheet" href="style.css">
+  <!-- icons: the flower in the browser tab, the "todo:" logo on phone home screens -->
+  <link rel="icon" type="image/png" href="iPhone 13/flower.png">
+  <link rel="apple-touch-icon" href="iPhone 13/icon/apple-touch-icon.png">
+  <link rel="manifest" href="iPhone 13/icon/site.webmanifest">
 
+  <!-- link preview when the site is shared -->
+  <meta property="og:site_name" content="whatodonxt">
+  <meta property="og:title" content="whatodonxt">
+  <meta property="og:description" content="how about...">
+  <meta property="og:image" content="https://4atatime.github.io/whatodonxt/iPhone%2013/flower.png">
+  <meta property="og:url" content="https://4atatime.github.io/whatodonxt/">
+  <meta property="og:type" content="website">
+
+  <!-- font: Fraunces (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&display=swap">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="header">
 
-        <div class="header_elements">what</div>
-        <div class="header_elements combo">
-            <div class="shape"> <img class='logo' src="iPhone 13/Group 2.png"></div>
-            <div class="text">tod<span class="green">o:</span></div>
+  <!-- ===== header ===== -->
+  <header class="header">
+    <span>what</span>
+    <span class="logo">tod<span class="dots">o:</span></span>
+    <span>next</span>
+  </header>
+
+  <!-- ===== main ===== -->
+  <main class="main">
+
+    <!-- ✏️ HOME TEXT: edit freely.
+         <br> = new line   <b>…</b> = bold   <span class="green">…</span> = green -->
+    <section class="words">
+      <p class="copy1">
+        sometimes we ask ourselves:<br>
+        <b>“what to do next?”</b>
+      </p>
+      <p class="copy1">
+        if you happen to be looking for<br>
+        an (answer),<br>
+        a little (motivation),<br>
+        or some odd (advice)<br>
+        on <b>what to</b> <b class="green">do:</b> <b>nxt</b>,
+      </p>
+      <div class="hint">
+        <div>
+          <p class="copy2">just (<span class="green">gently tap</span>) the <span class="green">flower</span><br>below, and you’ll know *</p>
+          <p class="copy3">*: it kinda rhymes.</p>
         </div>
-        <div class="header_elements">next</div>
+        <img class="arrow" src="iPhone 13/Vector 1.png" alt="">
+      </div>
+    </section>
 
-    </div>
+    <!-- the flower: tap it to go to the answer page -->
+    <section class="flower-spot">
+      <a class="flower" id="flower" href="content.html" aria-label="tap the flower for an answer">
+        <img src="iPhone 13/flower.png" alt="">
+      </a>
+    </section>
 
-    <div class="main">
+    <!-- ✏️ footnote -->
+    <p class="copy3 note">* this website is (<span class="green">plant-friendly</span>)</p>
 
-        <div class="main_upper">
-            <div class="copy1">
-                we ask ourselves sometimes:
-                <br>
-                <span class='bold'>"what to do next?"</span>
-            </div>
-            <div class="copy1">
+  </main>
 
-                if you happen to be looking for
-                <br>
-                an (ANSWER),
-                <br>
-                a (MOTIVATION),
-                <br>
-                a constructive (ADVICE)
-                <br>
-                on
-                <span class='bold'>what to</span>
-                <span class='bold green'>do:</span>
-                <span class='bold'>nxt</span>,
-            </div>
+  <!-- ===== footer ===== -->
+  <footer class="footer">
+    <a class="credit" href="https://4atatime.vercel.app/" target="_blank" rel="noopener">made by (<span class="green">4atatime</span>)</a>
+    <button class="share" id="share" type="button">share <img src="iPhone 13/share.png" alt=""></button>
+    <span class="toast" id="toast" role="status"></span>
+  </footer>
 
-        </div>
-        <div class="main_lower">
-
-            <div class="lower1">
-                <div class="arrow"><img class='vector' src="iPhone 13/Vector 1.png"></div>
-                <div class="copy_combo">
-
-                    <div class="copy2">just (<span class="green">gently tap</span>) the <span
-                            class="green">flower</span>
-                        <br>
-                        below, and you’ll know *
-                    </div>
-                    <div class="copy3">*: it kinda rhymes.</div>
-                </div>
-            </div>
-            <a href='content.html'> <div class="flower"><img class='button img_flower' src="iPhone 13/flower.png"></div></a>
-            <div class="copy3 right">* this website is (<span class="green">plant-friendly</span>)</div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <div class="social">
-            <a href='https://www.instagram.com/lex_akafischball/'> <div class="insta"><img class='logo' src="iPhone 13/Vector.png"></div></a>
-            <div class="header_elements combo">
-                <div class="shape_2"> <img class='logo' src="iPhone 13/Group 2.png"></div>
-                <div class="text">whatod<span class="green">o:</span>nxt</div>
-            </div>
-            <div class="share" id="sharebutton"><img class='logo' src="iPhone 13/share.png"></div>
-        </div>
-    </div>
-
+  <script src="main.js"></script>
 </body>
+</html>

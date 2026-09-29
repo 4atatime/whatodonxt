@@ -1,56 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-   <title>whatodonxt</title>
-   <link rel="icon" href="iPhone 13/flower.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>whatodonxt</title>
+  <meta name="description" content="how about...">
+  <meta name="theme-color" content="#0D0F0D">
 
-   <meta property="og:site_name" content="whatodonxt">
-   <meta property="og:title" content="whatodonxt" />
-   <meta property="og:description" content="how about..." />
-   <meta property="og:image" itemprop="image" content="https://4atatime.github.io/whatodonxt/iPhone%2013/flower.png"/>
-   <meta property="og:type" content="website" />
+  <!-- icons: the flower in the browser tab, the "todo:" logo on phone home screens -->
+  <link rel="icon" type="image/png" href="iPhone 13/flower.png">
+  <link rel="apple-touch-icon" href="iPhone 13/icon/apple-touch-icon.png">
+  <link rel="manifest" href="iPhone 13/icon/site.webmanifest">
 
-    <link rel="stylesheet" href="style.css">
+  <!-- link preview when the site is shared -->
+  <meta property="og:site_name" content="whatodonxt">
+  <meta property="og:title" content="whatodonxt">
+  <meta property="og:description" content="how about...">
+  <meta property="og:image" content="https://4atatime.github.io/whatodonxt/iPhone%2013/flower.png">
+  <meta property="og:url" content="https://4atatime.github.io/whatodonxt/">
+  <meta property="og:type" content="website">
+
+  <!-- font: Fraunces (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&display=swap">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="header">
-        <a href='index.html'><div class="header_elements"> <img class="leftarrow" src="iPhone 13/leftarrow.png"> </div></a>
-        <div class="header_elements combo">
-            <div class="shape"> <img class='logo' src="iPhone 13/Group 2.png"></div>
-            <div class="text">tod<span class="green">o:</span></div>
-        </div>
-        <div class="header_elements"> </div>
 
-    </div>
+  <!-- ===== header ===== -->
+  <header class="header">
+    <a class="back" href="index.html" aria-label="back to the start"><img src="iPhone 13/leftarrow.png" alt=""></a>
+    <span class="logo">tod<span class="dots">o:</span></span>
+    <span></span>
+  </header>
 
-    <div class="main_content">
+  <!-- ===== main ===== -->
+  <main class="main">
 
-        <div class="answer">
-            <div class="answer_text" id="answer_text"></div>
-            <div class="arrow2"><img class='vector' src="iPhone 13/Vector 1.png"></div>
-        </div>
+    <!-- the answer is filled in by main.js — edit the answers in answers.js -->
+    <section class="words">
+      <p class="answer" id="answer" aria-live="polite"></p>
+      <img class="arrow" src="iPhone 13/Vector 1.png" alt="">
+    </section>
 
-        <div class="constant">
-            <div class="flower" id="flowerbutton"><img class='button img_flower' src="iPhone 13/flower.png";></div>
-            <div class="copy3 right">* tap on the flower (<span class="green">again</span>), if you need another one</div>
-        </div>
+    <!-- the flower: tap it for another answer -->
+    <section class="flower-spot">
+      <button class="flower" id="flower" type="button" aria-label="another answer, please">
+        <img src="iPhone 13/flower.png" alt="">
+      </button>
+    </section>
 
-    </div>
+    <!-- ✏️ ANSWER PAGE TEXT: edit freely -->
+    <p class="copy3 note">* tap the flower (<span class="green">again</span>) if you need another one</p>
 
-    <div class="footer">
+  </main>
 
-        <div class="social">
-            <a href='https://www.instagram.com/lex_akafischball/'><div class="insta"><img class='logo' src="iPhone 13/Vector.png"></div></a>
-            <div class="header_elements combo">
-                <div class="shape_2"> <img class='logo' src="iPhone 13/Group 2.png"></div>
-                <div class="text">whatod<span class="green">o:</span>nxt</div>
-            </div>
-            <div class="share" id="sharebutton"><img class='logo' src="iPhone 13/share.png"></div>
-        </div>
-    </div>
+  <!-- ===== footer ===== -->
+  <footer class="footer">
+    <a class="credit" href="https://4atatime.vercel.app/" target="_blank" rel="noopener">made by (<span class="green">4atatime</span>)</a>
+    <button class="share" id="share" type="button">share <img src="iPhone 13/share.png" alt=""></button>
+    <span class="toast" id="toast" role="status"></span>
+  </footer>
 
-    
-    <script src="jQuery.js"></script>
-    <script src="main.js"></script>
-
-
+  <script src="answers.js"></script>
+  <script src="main.js"></script>
 </body>
+</html>
