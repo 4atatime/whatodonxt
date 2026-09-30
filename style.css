@@ -1,6 +1,6 @@
 /* =========================================================
    whatodonxt — styles
-   Colours, font and spacing are in :root, so you can
+   Colours, font, sizes and spacing are in :root, so you can
    tweak the whole site from one place.
    ========================================================= */
 
@@ -15,9 +15,17 @@
   --dim: #A3ADA4;     /* small print */
   --serif: "Fraunces", "Times New Roman", Times, serif;
 
-  --gutter: clamp(20px, 6vw, 80px);   /* smallest left/right margin */
-  --gap: clamp(28px, 5vw, 64px);      /* space between big blocks */
-  --max: 680px;                       /* content width (wider on desktop, see section 7) */
+  /* text sizes: they follow the screen's width AND height,
+     so everything fits on one phone screen without scrolling */
+  --fs-logo:   clamp(1.1rem,  min(5.2vw, 3svh),   1.6rem);
+  --fs-answer: clamp(1.1rem,  min(5.4vw, 3.1svh), 2rem);
+  --fs-copy2:  clamp(0.95rem, min(4.5vw, 2.6svh), 1.45rem);
+  --fs-copy1:  clamp(0.85rem, min(4vw, 2.35svh),  1.3rem);
+  --fs-small:  clamp(0.72rem, min(3.2vw, 1.8svh), 0.9rem);
+
+  --gutter: clamp(26px, 7.5vw, 96px);    /* smallest left/right margin */
+  --gap: clamp(14px, 3svh, 48px);        /* space between big blocks */
+  --max: 680px;                          /* content width (wider on desktop, see section 7) */
 
   /* left/right padding for header, main and footer, so their edges line up */
   --edge: max(var(--gutter), calc(50% - var(--max) / 2 + var(--gutter)));
@@ -39,8 +47,8 @@ body {
   color: var(--text);
   font-family: var(--serif);
   font-style: italic;
-  font-weight: 350;
-  font-variation-settings: "SOFT" 50;   /* Fraunces: slightly rounder, friendlier letters */
+  font-weight: 300;
+  font-variation-settings: "SOFT" 30;   /* Fraunces: slightly rounder, friendlier letters */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,31 +57,31 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 
 .green { color: var(--green); }
-.bold, b { font-weight: 650; }
+.bold, b { font-weight: 500; }
 
 
 /* ---- 3. header: left | logo | right ---- */
 .header {
-  position: sticky;            /* stays on top while scrolling, but never covers content */
+  position: sticky;            /* stays on top, never covers content */
   top: 0;
   z-index: 10;
   display: grid;
   grid-template-columns: 1fr auto 1fr;   /* logo always centred, sides pushed to the margins */
   align-items: center;
-  padding: calc(12px + env(safe-area-inset-top)) var(--edge) 12px;
+  padding: calc(10px + env(safe-area-inset-top)) var(--edge) 10px;
   background: var(--bar);
   color: var(--soft);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-variation-settings: "SOFT" 100;
-  font-size: clamp(1.5rem, 1rem + 2.2vw, 2.4rem);
-  letter-spacing: -0.03em;
+  font-size: var(--fs-logo);
+  letter-spacing: -0.02em;
 }
 .header > :first-child { justify-self: start; }
 .header > :last-child { justify-self: end; }
 
 /* "todo:" logo with the green dots behind "o:" */
-.logo { position: relative; isolation: isolate; }
+.logo { position: relative; isolation: isolate; text-decoration: none; }
 .dots { position: relative; color: var(--green); }
 .dots::before {
   content: "";
@@ -88,164 +96,243 @@ a { color: inherit; }
 
 /* back arrow (answer page) */
 .back { padding: 12px; margin-left: -12px; }   /* bigger tap area, same look */
-.back img { height: 0.62em; width: auto; transition: translate 0.2s; }
-.back:hover img { translate: -4px 0; }
+.back img { height: 0.55em; width: auto; transition: translate 0.2s; }
 
 
 /* ---- 4. main area ---- */
 .main {
+  position: relative;          /* the green arrow (svg) is drawn on top of this box */
   flex: 1;
   display: grid;
+  grid-template-rows: auto minmax(140px, 1fr) auto;   /* words | flower (takes what's left) | note */
   gap: var(--gap);
-  align-content: center;
   padding: var(--gap) var(--edge);
 }
 
 .words {
   display: flex;
   flex-direction: column;
-  gap: clamp(20px, 3vw, 32px);
+  gap: clamp(10px, 2svh, 24px);
+  align-self: center;
   animation: rise-in 0.6s ease backwards;
 }
 
 /* text sizes, biggest to smallest: answer > copy2 > copy1 > copy3 */
 .copy1 {
-  font-size: clamp(1.4rem, 1.1rem + 1.3vw, 2rem);
+  font-size: var(--fs-copy1);
+  line-height: 1.3;
+}
+
+.copy2 {
+  font-weight: 400;
+  font-size: var(--fs-copy2);
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
-.copy2 {
-  font-weight: 500;
-  font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-}
-
 .copy3 {
-  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+  font-size: var(--fs-small);
   line-height: 1.4;
   color: var(--dim);
 }
 
-/* "just gently tap the flower..." + curly arrow on its right */
-.hint { display: flex; align-items: flex-start; gap: clamp(16px, 4vw, 40px); margin-top: 12px; }
-.hint > div { display: flex; flex-direction: column; gap: 12px; }
-
-.arrow { width: clamp(30px, 3.5vw, 42px); flex: none; margin-top: 24px; }
+/* "just gently tap the flower..." + "*: it kinda rhymes." */
+.hint { display: flex; flex-direction: column; gap: 6px; }
 
 /* footnote under everything, on the left margin */
 .note { animation: rise-in 0.6s 0.15s ease backwards; }
 
+/* the green arrow pointing at the flower (drawn by main.js) */
+.aim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.28s;
+  animation: fade-in 0.6s 0.3s ease backwards;
+}
+.aim.swap { opacity: 0; }
+
 
 /* ---- 5. the flower ---- */
-.flower-spot { display: flex; justify-content: center; }
+/* the flower's spot takes all the space left over, the flower fills it (as a square) */
+.flower-spot {
+  container-type: size;
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+}
 
 .flower {
-  width: min(72vw, 360px);
+  display: block;
+  width: min(80cqw, 80cqh, 320px);   /* 80% of the free space, so the arrow has room */
+  aspect-ratio: 1;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
+  touch-action: manipulation;            /* no double-tap zoom delay on phones */
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.3, 1), scale 0.2s;   /* the spin (set by main.js) */
+  -webkit-touch-callout: none;           /* no "save image" menu on long press */
+  user-select: none;
+  -webkit-user-select: none;
+  transition: scale 0.2s;
 }
-.flower:hover { scale: 1.04; }
 .flower:active { scale: 0.96; }
 .flower:focus-visible { outline: 2px dashed var(--green); outline-offset: 8px; border-radius: 50%; }
 
-/* spins in when the page opens, then sways gently, asking to be tapped */
+.spin { display: block; }   /* this layer does the 360° spin (main.js) */
+
+/* fades in when the page opens, then sways gently, asking to be tapped */
 .flower img {
   width: 100%;
-  animation: spin-in 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) backwards,
+  pointer-events: none;
+  animation: bloom 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) backwards,
              sway 6s ease-in-out 1s infinite;
+}
+.spinning img { animation-play-state: paused; }   /* no swaying while spinning */
+
+/* mouse only: hover effects (on phones they would get "stuck" after a tap) */
+@media (hover: hover) {
+  .flower:hover { scale: 1.04; }
+  .back:hover img { translate: -4px 0; }
 }
 
 
 /* ---- 6. answer page ---- */
 .answer {
-  max-width: 24ch;                 /* short lines are easier to read at this size */
-  min-height: calc(4 * 1.2em);     /* keeps the flower from jumping when answers change length */
-  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.9rem);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  max-width: 28ch;                 /* short lines are easier to read at this size */
+  font-size: var(--fs-answer);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   text-wrap: balance;
   transition: opacity 0.28s, translate 0.28s, filter 0.28s;
 }
-.answer.swap { opacity: 0; translate: 0 10px; filter: blur(4px); }   /* fading out, before the swap */
+.answer.swap { opacity: 0; translate: 0 10px; filter: blur(4px); }   /* faded out while the flower spins */
 
-.words > .arrow { align-self: flex-end; margin-top: 0; }
+/* the answer sits lower, just above the flower, with more room under the header.
+   the box is always 5 lines tall, so the flower doesn't jump when answers change length */
+.answer-page .words {
+  min-height: calc(5 * 1.25 * var(--fs-answer));
+  justify-content: flex-end;
+  margin-top: clamp(12px, 5svh, 56px);
+}
+.answer-page .flower-spot { place-items: start center; }
 
 
-/* ---- 7. desktop & landscape tablet: text left, flower right ---- */
-@media (min-width: 860px) {
+/* ---- 7. desktop, tablet & phone in landscape: text left, flower right ---- */
+@media (min-width: 860px), (min-width: 560px) and (orientation: landscape) {
   :root { --max: 1180px; }
 
-  .main { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center; }
-  .flower { width: min(34vw, 58vh, 420px); }
+  .main {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-rows: 1fr auto;
+    column-gap: calc(var(--gap) * 2);
+  }
+  .flower { width: min(80cqw, 80cqh, 350px); }
   .note { grid-column: 1 / -1; }   /* full row under both columns, starting at the left margin */
+
+  .answer-page .words { justify-content: center; margin-top: 0; }
+  .answer-page .flower-spot { place-items: center; }
 }
 
 
 /* ---- 8. footer ---- */
 .footer {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 14px var(--edge) calc(14px + env(safe-area-inset-bottom));
+  padding: 8px var(--edge) calc(8px + env(safe-area-inset-bottom));
   background: var(--bar);
   color: var(--soft);
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1rem);
+  font-size: var(--fs-small);
 }
 
-.credit { text-decoration: none; padding: 10px 0; }
-.credit:hover { text-decoration: underline; text-decoration-color: var(--green); text-underline-offset: 4px; }
+.credit, .about-open { padding: 10px 0; text-decoration: none; }
+.credit:hover, .about-open:hover { text-decoration: underline; text-decoration-color: var(--green); text-underline-offset: 4px; }
 
-.share {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 0 10px 10px;
+.about-open { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+
+
+/* ---- 9. "about" pop-up ---- */
+.about {
+  width: min(100% - 2 * var(--gutter), 30rem);
+  max-height: min(86dvh, 40rem);
+  margin: auto;
+  padding: clamp(22px, 5vw, 36px);
+  border: 1px solid #2A332B;
+  border-radius: 18px;
+  background: var(--bar);
+  color: var(--text);
+  font-size: var(--fs-copy1);
+  line-height: 1.45;
+  overscroll-behavior: contain;
+}
+.about[open] { animation: pop-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1); }
+.about::backdrop { background: rgb(8 10 8 / 0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+
+.about h2 {
+  margin: 0 0 1em;
+  color: var(--soft);
+  font-size: var(--fs-copy2);
+  font-weight: 400;
+}
+.about p + p { margin-top: 0.8em; }
+.about p a { text-decoration-color: var(--green); text-underline-offset: 4px; }
+.about p a:hover { color: var(--green); }
+.about .copy3 { margin-top: 1.4em; }
+
+.about-links { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 1.2em; font-size: var(--fs-small); }
+.about-links a { color: var(--soft); text-decoration-color: var(--green); text-underline-offset: 4px; }
+.about-links a:hover { color: var(--green); }
+
+.about-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
   border: 0;
   background: none;
-  color: inherit;
+  color: var(--dim);
   font: inherit;
+  font-size: 1.3rem;
+  line-height: 1;
   cursor: pointer;
 }
-.share img { width: 20px; transition: rotate 0.3s; }
-.share:hover img { rotate: -20deg; }
-
-/* "copied!" bubble */
-.toast {
-  position: absolute;
-  right: var(--edge);
-  bottom: calc(100% + 8px);
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--green);
-  color: var(--bg);
-  font-weight: 600;
-  pointer-events: none;
-  opacity: 0;
-  translate: 0 6px;
-  transition: opacity 0.2s, translate 0.2s;
-}
-.toast.show { opacity: 1; translate: 0 0; }
+.about-close:hover { color: var(--green); }
 
 
-/* ---- 9. page transition (home → answer page) ---- */
+/* ---- 10. page transition (home → answer page) ---- */
 .leaving .words,
-.leaving .note { opacity: 0; translate: 0 -12px; transition: opacity 0.45s, translate 0.45s; }
+.leaving .note,
+.leaving .aim { opacity: 0; translate: 0 -12px; transition: opacity 0.5s, translate 0.5s; }
 
 
-/* ---- 10. animations ---- */
+/* ---- 11. animations ---- */
 @keyframes rise-in { from { opacity: 0; translate: 0 12px; } }
-@keyframes spin-in { from { opacity: 0; transform: rotate(-160deg) scale(0.85); } }
-@keyframes sway { 0%, 100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes bloom   { from { opacity: 0; scale: 0.9; } }
+@keyframes sway    { 0%, 100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+@keyframes pop-in  { from { opacity: 0; scale: 0.96; } }
 
-/* people who prefer less motion get a calm version */
+/* people who prefer less motion get a calm page
+   (the spin still happens, because it only runs when you tap) */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01s !important; }
+}
+
+/* very short screens (phones in landscape): a bit tighter, so nothing scrolls */
+@media (max-height: 420px) {
+  :root { --gap: 10px; }
+  .header { padding-block: calc(6px + env(safe-area-inset-top)) 6px; }
+  .footer { padding-block: 2px calc(2px + env(safe-area-inset-bottom)); }
 }

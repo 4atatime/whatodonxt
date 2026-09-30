@@ -28,12 +28,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="answer-page">
 
   <!-- ===== header ===== -->
   <header class="header">
     <a class="back" href="index.html" aria-label="back to the start"><img src="iPhone 13/leftarrow.png" alt=""></a>
-    <span class="logo">tod<span class="dots">o:</span></span>
+    <a class="logo" href="index.html" aria-label="back to the start">tod<span class="dots">o:</span></a>
     <span></span>
   </header>
 
@@ -42,28 +42,44 @@
 
     <!-- the answer is filled in by main.js — edit the answers in answers.js -->
     <section class="words">
-      <p class="answer" id="answer" aria-live="polite"></p>
-      <img class="arrow" src="iPhone 13/Vector 1.png" alt="">
+      <p class="answer" id="answer" aria-live="polite" data-aim></p>
     </section>
 
     <!-- the flower: tap it for another answer -->
     <section class="flower-spot">
       <button class="flower" id="flower" type="button" aria-label="another answer, please">
-        <img src="iPhone 13/flower.png" alt="">
+        <span class="spin"><img src="iPhone 13/daisy.png" alt="" draggable="false"></span>
       </button>
     </section>
 
     <!-- ✏️ ANSWER PAGE TEXT: edit freely -->
     <p class="copy3 note">* tap the flower (<span class="green">again</span>) if you need another one</p>
 
+    <!-- green arrow pointing at the flower (drawn by main.js) -->
+    <svg class="aim" aria-hidden="true"><path/></svg>
+
   </main>
 
   <!-- ===== footer ===== -->
   <footer class="footer">
     <a class="credit" href="https://4atatime.vercel.app/" target="_blank" rel="noopener">made by (<span class="green">4atatime</span>)</a>
-    <button class="share" id="share" type="button">share <img src="iPhone 13/share.png" alt=""></button>
-    <span class="toast" id="toast" role="status"></span>
+    <button class="about-open" type="button" data-open-about>about</button>
   </footer>
+
+  <!-- ===== "about" pop-up =====
+       ✏️ ABOUT TEXT: edit freely, but change it in BOTH index.html and content.html -->
+  <dialog class="about" id="about" aria-labelledby="about-title">
+    <button class="about-close" type="button" data-close aria-label="close">&times;</button>
+    <h2 id="about-title">hello and welcome &lt;3</h2>
+    <p>a little flower that tells you what to do next, for when you feel stuck.</p>
+    <p>inspired by <a href="https://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank" rel="noopener">Oblique Strategies</a>, the card deck by Brian Eno and Peter Schmidt.</p>
+    <p><b>how to use it:</b> tap the flower. trust the answer, even if it makes no sense yet.</p>
+    <p>made by (<span class="green">4atatime</span>).</p>
+    <p class="about-links">
+      <a href="https://4atatime.vercel.app/" target="_blank" rel="noopener">website</a>
+      <a href="https://www.instagram.com/lex_akafischball/" target="_blank" rel="noopener">instagram</a>
+    </p>
+  </dialog>
 
   <script src="answers.js"></script>
   <script src="main.js"></script>

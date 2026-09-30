@@ -4,11 +4,12 @@ A flower that tells you what to do next. Live: https://4atatime.github.io/whatod
 
 ## Status
 
-Live from the `main` branch (GitHub Pages). Redesign done in the `redesign` branch and merged.
+Live from the `main` branch (GitHub Pages). Work happens in the `redesign` branch, gets previewed locally, then is merged into `main`.
 
 - Works on phone, tablet and desktop (two columns from 860px wide).
-- Flower spins on tap; answers fade in, never repeat until all are seen (or page reload).
-- Share: native share sheet, or copies the link ("copied!").
+- Tap the flower: it spins once (360°), then shows an answer. Answers never repeat until all are seen (or page reload).
+- Everything fits on one screen, no scrolling. The green arrow is drawn by `main.js` and always points at the flower.
+- "about" pop-up in the footer.
 - No jQuery, no frameworks. Font: Fraunces (Google Fonts).
 
 ## Edit text on GitHub (no install needed)
@@ -24,8 +25,16 @@ Live from the `main` branch (GitHub Pages). Redesign done in the `redesign` bran
 | "seen them all" line     | `answers.js`   | `const ALL_SEEN`       |
 | home page text           | `index.html`   | `✏️ HOME TEXT`         |
 | answer page footnote     | `content.html` | `✏️ ANSWER PAGE TEXT`  |
-| share message            | `main.js`      | `text:`                |
-| colours, sizes           | `style.css`    | `:root` (top)          |
+| about pop-up             | `index.html` **and** `content.html` | `✏️ ABOUT TEXT` |
+| spin speed               | `main.js`      | `SPIN_TIME`            |
+| colours, text sizes, margins | `style.css` | `:root` (top)         |
+| flower size              | `style.css`    | `.flower` (`width`)    |
+
+## Images (`iPhone 13/`)
+
+- `daisy.png`: the flower on the pages.
+- `flower.png`: the browser-tab icon and the link-preview image (kept separate on purpose).
+- `icon/`: home-screen icons ("todo:" logo).
 
 ## Answers format
 
@@ -48,6 +57,20 @@ In HTML text: `<br>` = new line, `<b>…</b>` = bold, `<span class="green">…</
 - Answers moved to `answers.js`, shuffled without repeats; 12 new answers; copy revised.
 - Softer green `#86D68E`, background `#121412`, Fraunces italic.
 - Removed jQuery, `.DS_Store`, unused CSS; added `<!DOCTYPE>`, viewport, flower favicon.
+
+## Changes (update, Sept 30 2026)
+
+- Smaller, lighter type; everything fits one phone screen; wider margins.
+- Flower spin rebuilt: full 360° on every tap, then the page turns / a new answer appears. Works with "reduce motion" on.
+- Share button replaced by an "about" pop-up. Logo on the answer page links home.
+- Green arrow is now drawn in code and aims at the flower on any screen, 20% shorter, with space at both ends.
+- New, sharper flower photo (`daisy.png`), 20% smaller so it has room to breathe.
+- About pop-up shortened: "hello and welcome <3", link to Oblique Strategies (Wikipedia), website + Instagram.
+- Answer page: the answer sits in the middle of the screen, right above the flower.
+
+## Ideas / not done yet
+
+- Link-preview image (`og:image`) still shows the old flower.
 
 ## Run locally
 
