@@ -33,7 +33,8 @@ Live from the `main` branch (GitHub Pages). Work happens in the `redesign` branc
 ## Images (`iPhone 13/`)
 
 - `daisy.png`: the flower on the pages.
-- `flower.png`: the browser-tab icon and the link-preview image (kept separate on purpose).
+- `flower.png`: the browser-tab icon (kept separate on purpose).
+- `og-image.png`: the picture shown when the link is shared (1200×630: logo, arrow, flower).
 - `icon/`: home-screen icons ("todo:" logo).
 
 ## Answers format
@@ -68,9 +69,7 @@ In HTML text: `<br>` = new line, `<b>…</b>` = bold, `<span class="green">…</
 - About pop-up shortened: "hello and welcome <3", link to Oblique Strategies (Wikipedia), website + Instagram.
 - Answer page: the answer sits in the middle of the screen, right above the flower.
 
-## Ideas / not done yet
-
-- Link-preview image (`og:image`) still shows the old flower.
+- Share preview image redesigned (`og-image.png`): logo, arrow, new flower, no text.
 
 ## Run locally
 
